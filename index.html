@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div id="app_container">
+            <div id="app">
+                <div id="inputContainer">
+                    <h1>Enter a Phrase you like:</h1>
+                    <input id="inputField"/>
+                    <div>
+                    <br>
+                    <input type="color" id="colorOn" name="colorOn"
+                        value="#ff0000">
+                    <label for="colorOn">Primary Color</label>
+                    <input type="color" id="colorOff" name="colorOff"
+                        value="#ffffff">
+                    <label for="colorOff">Secondary Color</label>
+                    </div>
+                    <br>
+                    <button class="button" onclick="generateGraph()">Run!</button>
+                    <!-- <button class="button" onclick="exportImage()">Export!</button> -->
+                </div>
+                <canvas id="myCanvas"></canvas>
+                <h1 id="fullText"></h1>
+                <script src="donut.js"></script>
+            </div>
+        </div>
+    </body>
+</html>
