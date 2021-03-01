@@ -1,11 +1,8 @@
-const logger = require('heroku-logger')
-
 function getParameters(){
     var options = {}
     options.phrase = document.getElementById("inputField").value
     options.colorOn = document.getElementById("colorOn").value
     options.colorOff = document.getElementById("colorOff").value
-    logger.info("Searched Phrase: " + options.phrase)
     return options
 }
 
