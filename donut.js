@@ -26,7 +26,7 @@ function createGraph(phrase,colorOn,colorOff) {
         ratioSize = 1-((wordNum+1)/(wordArray.length+1))
         var myDougnutChart = new Piechart(
         {
-            radius:Math.min((myCanvas.width/2)*(ratioSize),(myCanvas.width*2)*(ratioSize)),
+            radius:Math.min((myCanvas.width/2.5)*(ratioSize),(myCanvas.height/2.5)*(ratioSize)),
             canvas:myCanvas,
             data:WordObjects,
             doughnutHoleSize:ratioSize,
@@ -35,11 +35,12 @@ function createGraph(phrase,colorOn,colorOff) {
     );
     myDougnutChart.draw();
     }
-    // ctx.font = "italic 12pt Courier";
-    // ctx.fillStyle = "black";
-    // ctx.textAlign = "center";
-    // ctx.fillText(newphrase, myCanvas.width/2, myCanvas.height-20);
-    document.getElementById("fullText").innerHTML = newphrase.italics()
+    fontSize = Math.max(Math.floor(myCanvas.width/newphrase.length),1)
+    ctx.font = "italic bold "+fontSize+"pt Courier";
+    ctx.fillStyle = colorOn;
+    ctx.textAlign = "center";
+    ctx.fillText(newphrase, myCanvas.width/2, myCanvas.height-20);
+    // document.getElementById("fullText").innerHTML = newphrase.italics()
 }
 
 function gettingInfo() {
