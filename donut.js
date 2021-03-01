@@ -3,12 +3,17 @@ function getParameters(){
     options.phrase = document.getElementById("inputField").value
     options.colorOn = document.getElementById("colorOn").value
     options.colorOff = document.getElementById("colorOff").value
+    console.log(options.phrase)
     return options
 }
 
 function begin(){
-    document.getElementById("inputField").value = "Space is Neat!"
-    createGraph("Space is Neat!","#ff0000", "#ffffff")
+    const urlParams = new URLSearchParams(window.location.search);
+    const phraseParam = urlParams.get('phrase');
+    const primaryColorParam = urlParams.get('primary');
+    const secondaryColorParam = urlParams.get('secondary');
+    document.getElementById("inputField").value = phraseParam?phraseParam:"Space is Neat!"
+    createGraph(phraseParam?phraseParam:"Space is Neat!", primaryColorParam?(decodeURIComponent(primaryColorParam)):"#ff0000", secondaryColorParam?(decodeURIComponent(secondaryColorParam)):"#ffffff")
 }
 
 function createGraph(phrase,colorOn,colorOff) {
@@ -61,8 +66,39 @@ function generateGraph(){
     phrase = options.phrase;
     colorOn = options.colorOn;
     colorOff = options.colorOff;
+    var url = new URL(window.location.href);
+    // var search_params = url.searchParams
+
+    window.history.replaceState('', '', updateQueryStringParam('phrase',encodeURIComponent(phrase)));
+    window.history.replaceState('', '', updateQueryStringParam('primary',encodeURIComponent(colorOn)));
+    window.history.replaceState('', '', updateQueryStringParam('secondary',encodeURIComponent(colorOff)));
+    decodeURIComponent
+    
+    // search_params.set('phrase',encodeURIComponent(phrase))
+    // search_params.set('colorOn',encodeURIComponent(colorOn))
+    // search_params.set('colorOff',encodeURIComponent(colorOff))
     createGraph(phrase,colorOn,colorOff)
 }
+
+var updateQueryStringParam = function (key, value) {
+    var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+        urlQueryString = document.location.search,
+        newParam = key + '=' + value,
+        params = '?' + newParam;
+
+    // If the "search" string exists, then build params from it
+    if (urlQueryString) {
+        keyRegex = new RegExp('([\?&])' + key + '[^&]*');
+
+        // If param exists already, update it
+        if (urlQueryString.match(keyRegex) !== null) {
+            params = urlQueryString.replace(keyRegex, "$1" + newParam);
+        } else { // Otherwise, add it to end of query string
+            params = urlQueryString + '&' + newParam;
+        }
+    }
+    window.history.replaceState({}, "", baseUrl + params);
+};
 
 function stringToBinary(input) {
     var characters = input.split('');
