@@ -1,9 +1,11 @@
+const logger = require('heroku-logger')
+
 function getParameters(){
     var options = {}
     options.phrase = document.getElementById("inputField").value
     options.colorOn = document.getElementById("colorOn").value
     options.colorOff = document.getElementById("colorOff").value
-    console.log(options.phrase)
+    logger.info("Searched Phrase: " + options.phrase)
     return options
 }
 
@@ -13,13 +15,13 @@ function begin(){
     const primaryColorParam = urlParams.get('primary');
     const secondaryColorParam = urlParams.get('secondary');
     document.getElementById("inputField").value = phraseParam?phraseParam:"Space is Neat!"
+    document.getElementById("colorOn").value = primaryColorParam?(decodeURIComponent(primaryColorParam)):"#ff0000"
+    document.getElementById("colorOff").value = secondaryColorParam?(decodeURIComponent(secondaryColorParam)):"#ffffff"
     createGraph(phraseParam?phraseParam:"Space is Neat!", primaryColorParam?(decodeURIComponent(primaryColorParam)):"#ff0000", secondaryColorParam?(decodeURIComponent(secondaryColorParam)):"#ffffff")
 }
 
 function createGraph(phrase,colorOn,colorOff) {
     var myCanvas = document.getElementById("myCanvas");
-    //var colorOn = document.getElementById("colorOn").value
-    //var colorOff = document.getElementById("colorOff").value
     ctx = myCanvas.getContext("2d")
     myCanvas.width = 400;
     myCanvas.height = 400;
@@ -58,7 +60,6 @@ function gettingInfo() {
     phrase = options.phrase;
     colorOn = options.colorOn;
     colorOff = options.colorOff;
-    // = document.getElementById("inputField").value
 }
 
 function generateGraph(){
@@ -66,17 +67,11 @@ function generateGraph(){
     phrase = options.phrase;
     colorOn = options.colorOn;
     colorOff = options.colorOff;
-    var url = new URL(window.location.href);
-    // var search_params = url.searchParams
 
-    window.history.replaceState('', '', updateQueryStringParam('phrase',encodeURIComponent(phrase)));
-    window.history.replaceState('', '', updateQueryStringParam('primary',encodeURIComponent(colorOn)));
-    window.history.replaceState('', '', updateQueryStringParam('secondary',encodeURIComponent(colorOff)));
-    decodeURIComponent
-    
-    // search_params.set('phrase',encodeURIComponent(phrase))
-    // search_params.set('colorOn',encodeURIComponent(colorOn))
-    // search_params.set('colorOff',encodeURIComponent(colorOff))
+    updateQueryStringParam('phrase',encodeURIComponent(phrase));
+    updateQueryStringParam('primary',encodeURIComponent(colorOn));
+    updateQueryStringParam('secondary',encodeURIComponent(colorOff));
+
     createGraph(phrase,colorOn,colorOff)
 }
 
