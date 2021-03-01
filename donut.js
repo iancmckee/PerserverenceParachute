@@ -6,6 +6,11 @@ function getParameters(){
     return options
 }
 
+function begin(){
+    document.getElementById("inputField").value = "Space is Neat!"
+    createGraph("Space is Neat!","#ff0000", "#ffffff")
+}
+
 function createGraph(phrase,colorOn,colorOff) {
     var myCanvas = document.getElementById("myCanvas");
     //var colorOn = document.getElementById("colorOn").value
