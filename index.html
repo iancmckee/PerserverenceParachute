@@ -7,7 +7,7 @@
             <div id="app">
                 <div id="inputContainer">
                     <h1>Enter a Phrase you like:</h1>
-                    <input id="inputField"/>
+                    <textarea id="inputField"></textarea>
                     <div>
                     <br>
                     <input type="color" id="colorOn" name="colorOn"
@@ -16,6 +16,16 @@
                     <input type="color" id="colorOff" name="colorOff"
                         value="#ffffff">
                     <label for="colorOff">Secondary Color</label>
+                    </div>
+                    <div>
+                        <H3>Resolution:</H3>
+                        <label class="left">Height:</label>
+                        <br>
+                        <input id="inputHeight" class="pull-right" value="400">
+                        <br>
+                        <label class="left">Width:</label>
+                        <br>
+                        <input id="inputWidth" class="pull-right" value="400">
                     </div>
                     <br>
                     <button class="button" onclick="generateGraph()">Run!</button>

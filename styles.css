@@ -8,9 +8,14 @@
     text-align: center;
 }
 
-/* .button {
-    display: block;
-    background-color: #bbb;
-    margin: 10px;
-    padding: 10px
-  } */
+#inputField {
+    width: 100%
+}
+
+#inputHeight, #inputWidth {
+    width:67%
+}
+
+.button {
+    width: 100%
+  }

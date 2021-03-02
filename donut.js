@@ -1,8 +1,10 @@
 function getParameters(){
     var options = {}
-    options.phrase = document.getElementById("inputField").value
+    options.phrase = document.getElementById("inputField").value?document.getElementById("inputField").value:"Enter something!"
     options.colorOn = document.getElementById("colorOn").value
     options.colorOff = document.getElementById("colorOff").value
+    options.height = document.getElementById("inputHeight").value
+    options.width = document.getElementById("inputWidth").value
     return options
 }
 
@@ -14,14 +16,15 @@ function begin(){
     document.getElementById("inputField").value = phraseParam?phraseParam:"Space is Neat!"
     document.getElementById("colorOn").value = primaryColorParam?(decodeURIComponent(primaryColorParam)):"#ff0000"
     document.getElementById("colorOff").value = secondaryColorParam?(decodeURIComponent(secondaryColorParam)):"#ffffff"
-    createGraph(phraseParam?phraseParam:"Space is Neat!", primaryColorParam?(decodeURIComponent(primaryColorParam)):"#ff0000", secondaryColorParam?(decodeURIComponent(secondaryColorParam)):"#ffffff")
+    createGraph(phraseParam?phraseParam:"Space is Neat!", primaryColorParam?(decodeURIComponent(primaryColorParam)):"#ff0000", secondaryColorParam?(decodeURIComponent(secondaryColorParam)):"#ffffff", 400, 400)
 }
 
-function createGraph(phrase,colorOn,colorOff) {
+function createGraph(phrase,colorOn,colorOff,height, width) {
     var myCanvas = document.getElementById("myCanvas");
     ctx = myCanvas.getContext("2d")
-    myCanvas.width = 400;
-    myCanvas.height = 400;
+    //ignore that these are flipped it's on purpose
+    myCanvas.width = height;
+    myCanvas.height = width;
 
     fullPhrase = phrase.split(" ")
     newphrase=""
@@ -48,15 +51,7 @@ function createGraph(phrase,colorOn,colorOff) {
     ctx.font = "italic bold "+fontSize+"pt Courier";
     ctx.fillStyle = colorOn;
     ctx.textAlign = "center";
-    ctx.fillText(newphrase, myCanvas.width/2, myCanvas.height-20);
-    // document.getElementById("fullText").innerHTML = newphrase.italics()
-}
-
-function gettingInfo() {
-    options = getParameters();
-    phrase = options.phrase;
-    colorOn = options.colorOn;
-    colorOff = options.colorOff;
+    ctx.fillText(newphrase, myCanvas.width/2, myCanvas.height-(myCanvas.height/20));
 }
 
 function generateGraph(){
@@ -64,12 +59,14 @@ function generateGraph(){
     phrase = options.phrase;
     colorOn = options.colorOn;
     colorOff = options.colorOff;
+    height = options.height;
+    width = options.width;
 
     updateQueryStringParam('phrase',encodeURIComponent(phrase));
     updateQueryStringParam('primary',encodeURIComponent(colorOn));
     updateQueryStringParam('secondary',encodeURIComponent(colorOff));
 
-    createGraph(phrase,colorOn,colorOff)
+    createGraph(phrase,colorOn,colorOff, height, width)
 }
 
 var updateQueryStringParam = function (key, value) {
@@ -101,14 +98,6 @@ function stringToBinary(input) {
       // Just to make sure it is 8 bits long.
       return '0'.repeat(pad) + binary;
     }).join('');
-}
-
-function createChartData(arrayOfWords){
-    item = [];
-    for(i=0;i<arrayOfWords.length; i++){
-        
-    }
-
 }
 
 var convertWordToObjects = function(word,colorOn,colorOff){
@@ -185,12 +174,12 @@ function drawPieSlice(ctx,centerX, centerY, radius, startAngle, endAngle, color,
     }
 }
 
-function exportImage(){
-    options = getParameters();
-    phrase = options.phrase;
-    colorOn = options.colorOn;
-    colorOff = options.colorOff;
-    myPopup = window.open("export.html")
-    myPopup.addEventListener('load', generateGraph(phrase,colorOn,colorOff), false);
-    // generateGraph(phrase,colorOn,colorOff)
-}
+// function exportImage(){
+//     options = getParameters();
+//     phrase = options.phrase;
+//     colorOn = options.colorOn;
+//     colorOff = options.colorOff;
+//     myPopup = window.open("export.html")
+//     myPopup.addEventListener('load', generateGraph(phrase,colorOn,colorOff), false);
+//     // generateGraph(phrase,colorOn,colorOff)
+// }
