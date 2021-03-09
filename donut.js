@@ -47,11 +47,14 @@ function createGraph(phrase,colorOn,colorOff,height, width) {
     );
     myDougnutChart.draw();
     }
-    fontSize = Math.max(Math.floor(myCanvas.width/newphrase.length),1)
-    ctx.font = "italic bold "+fontSize+"pt Courier";
-    ctx.fillStyle = colorOn;
-    ctx.textAlign = "center";
-    ctx.fillText(newphrase, myCanvas.width/2, myCanvas.height-(myCanvas.height/20));
+    if (document.getElementById('messageCheckbox').checked) {
+        fontSize = Math.max(Math.floor(myCanvas.width/newphrase.length),1)
+        ctx.font = "italic bold "+fontSize+"pt Courier";
+        ctx.fillStyle = colorOn;
+        ctx.textAlign = "center";
+        ctx.fillText(newphrase, myCanvas.width/2, myCanvas.height-(myCanvas.height/20));
+    }
+    
 }
 
 function generateGraph(){
